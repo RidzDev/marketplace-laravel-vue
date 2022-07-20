@@ -1,0 +1,21 @@
+.page-home {
+    h5 {
+        font-weight: 300;
+        margin-bottom: 15px;
+    }
+    .store-trend-categories {
+        margin-top: 30px;
+    }
+    .store-new-product {
+        margin-top: 10px;
+    }
+}
+
+    .form-control {
+        background: #f3f3f3;
+        border-radius: 8px;
+
+        &:focus {
+            background: #fff;
+        }
+    }
