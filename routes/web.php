@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DashboardProductController;
-use App\Http\Controllers\DashboardSettingController;
-use App\Http\Controllers\DashboardTransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\DashboardProductController;
+use App\Http\Controllers\DashboardSettingController;
+use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\DashboardTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,16 +47,20 @@ Route::get('/dashboard/settings', [DashboardSettingController::class, 'store'])-
 Route::get('/dashboard/account', [DashboardSettingController::class, 'account'])->name('dashboard-settings-account');
 
 Route::prefix('admin')
-->namespace('Admin')
+// ->namespace('Admin')
 // ->middleware(['auth', 'admin'])
 ->group(function() {
-Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
+Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
+Route::resource('category', CategoryController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('product', ProductController::class);
+    Route::resource('product-gallery', ProductGalleryController::class);
 });
+
+
+
+Auth::routes();
 
 // Route::get('/debug-sentry', function () {
 //     throw new Exception('My first Sentry error!');
 // });
-
-Auth::routes();
-
-
