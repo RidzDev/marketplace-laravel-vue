@@ -14,8 +14,8 @@ class CategoryRequest extends FormRequest
    */
   public function authorize()
   {
-    return true;
-    //return Auth::check();
+    //return true;
+    return Auth::check();
   }
 
   /**

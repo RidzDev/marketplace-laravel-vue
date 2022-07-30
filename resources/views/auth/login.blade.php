@@ -11,19 +11,30 @@
             <div class="col-lg-5">
               <h2>Belanja kebutuhan utama, <br>
               menjadi lebih mudah</h2>
-              <form action="" class="mt-3">
+              <form method="POST" action="{{ route('login') }}" class="mt-3">
+                        @csrf
                 <div class="form-group">
                   <label for="">Email Address</label>
-                  <input type="email" name="" id="" class="form-control">
+                  <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                      @error('email')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
                 </div>
                 <div class="form-group">
                   <label for="">Password</label>
-                  <input type="password" name="" id="" class="form-control">
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        @error('password')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
                 </div>
-                <a href="/dashboard.html" class="btn btn-success btn-block mt-4">
+                <button type="submit" class="btn btn-success btn-block mt-4">
                   Masuk
-                </a>
-                <a href="/register.html" class="btn btn-signup btn-block mt-4">
+                </button>
+                <a href="{{ route('register') }}" class="btn btn-signup btn-block mt-4">
                   Daftar
                 </a>
               </form>

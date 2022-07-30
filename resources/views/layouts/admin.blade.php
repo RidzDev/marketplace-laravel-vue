@@ -50,6 +50,7 @@
               class="list-group-item list-group-item-action"
               >Galleries</a
             >
+            
             <a
               href="{{ route('category.index') }}"
               class="list-group-item list-group-item-action {{ (request()->is('admin/category*')) ? 'active' : '' }}"

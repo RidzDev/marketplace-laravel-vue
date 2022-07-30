@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class TransactionDetail extends Model
 {
     use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'users_id',
-        'insurance_id',
-        'shipping_price',
-        'total_price',
-        'code',
+        'transactions_id',
+        'products_id',
+        'price',
+        'shipping_status',
+        'resi',
+        'code'
     ];
 
     /**
@@ -27,6 +27,5 @@ class Transaction extends Model
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 }

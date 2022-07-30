@@ -43,7 +43,7 @@
 @push('addon-script')
     <script>
             // AJAX DataTable
-            var dataTable = $('#crudTable').DataTable({
+            var t = $('#crudTable').DataTable({
               processing: true,
               serverSide: true,
               ordering: true,
@@ -51,6 +51,15 @@
                     // url: "{{ route('product.index') }}"
                     url: "{!! url()->current() !!}",
                 },
+
+                columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0,
+                  },
+                ],
+                order: [[1, 'asc']],
+                
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'product.name', name: 'product.name'},
@@ -63,6 +72,12 @@
                         width: '15%',
                     }
                 ],
-            })
+            });
+          t.on('order.dt search.dt', function () {
+          let i = 1;
+          t.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+            this.data(i++);
+          });
+          }).draw();
         </script>
 @endpush

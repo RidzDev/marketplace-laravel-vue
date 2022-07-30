@@ -25,10 +25,13 @@ use App\Http\Controllers\DashboardTransactionController;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'detail'])->name('categories-detail');
 
-Route::get('/details/{id?}', [App\Http\Controllers\DetailController::class, 'index'])->name('detail');
+Route::get('/details/{id}', [App\Http\Controllers\DetailController::class, 'index'])->name('detail');
+Route::post('/details/{id}', [App\Http\Controllers\DetailController::class, 'add'])->name('detail-add');
 
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
+Route::delete('/cart/{id}', [App\Http\Controllers\CartController::class, 'delete'])->name('cart-delete');
 
 Route::get('/success', [App\Http\Controllers\CartController::class, 'success'])->name('success');
 
@@ -46,9 +49,13 @@ Route::get('/dashboard/transactions/{id}', [DashboardTransactionController::clas
 Route::get('/dashboard/settings', [DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
 Route::get('/dashboard/account', [DashboardSettingController::class, 'account'])->name('dashboard-settings-account');
 
+//Route::group(
+//    ['middleware' => ['auth:sanctum', 'verified']],
+//    function () {
+//Route::name('admin.')->prefix('admin')
 Route::prefix('admin')
 // ->namespace('Admin')
-// ->middleware(['auth', 'admin'])
+//->middleware(['auth', 'admin'])
 ->group(function() {
 Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
 Route::resource('category', CategoryController::class);
@@ -56,7 +63,17 @@ Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
     Route::resource('product-gallery', ProductGalleryController::class);
 });
+//});
 
+//Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
+//    Route::name('dashboard.')->prefix('dashboard')->group(function () {
+//        Route::get('/', [DashboardController::class, 'index'])->name('index');
+
+//        Route::middleware(['admin'])->group(function () {
+//            Route::resource('category', ProductCategoryController::class);
+//        });
+//    });
+//});
 
 
 Auth::routes();
