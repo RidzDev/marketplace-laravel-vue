@@ -83,14 +83,14 @@
                   type="submit"
                   class="btn btn-success px-4 text-white btn-block mb-3"
                 >
-                  Add to cart
+                  Add to Cart
                 </button>
                 </form>
                 @else
-                <a href="{{ route(login) }}"
+                <a href="{{ route('login') }}"
                   class="btn btn-success px-4 text-white btn-block mb-3"
                 >
-                  Sign-in to Add
+                  Add to Cart
                 </a>
                 @endauth
                 
