@@ -25,16 +25,6 @@
             <li class="nav-item">
               <a href="{{ route('home') }}" class="nav-link">Rewards</a>
             </li>
-            {{--<li class="nav-item">
-              <a href="{{ route('register') }}" class="nav-link">Daftar</a>
-            </li>
-            <li class="nav-item">
-              <a
-                href="{{ route('login') }}"
-                class="btn btn-success nav-link px-4 text-white"
-                >Masuk</a
-              > 
-            </li>--}}
           </ul>
         </div>
       </div>

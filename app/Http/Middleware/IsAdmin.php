@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user() && Auth::user() == "ADMIN"){
+        if(Auth::user() && Auth::user()->roles == "ADMIN"){
             return $next($request);
         }
         //cara lain menggunakna laravel permision 

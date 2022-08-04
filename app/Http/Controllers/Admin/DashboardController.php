@@ -13,12 +13,10 @@ class DashboardController extends Controller
         $customer = User::count();
         $revenue = Transaction::where('transaction_status', 'SUCCESS')->sum('total_price');
         $transaction = Transaction::count();
-        return view('pages.admin.dashboard', [
+        return view('pages.admin.dashboard',[
             'customer' => $customer,
             'revenue' => $revenue,
             'transaction' => $transaction,
         ]);
-
     }
-
 }

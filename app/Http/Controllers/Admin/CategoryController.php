@@ -118,9 +118,7 @@ class CategoryController extends Controller
     $data['photo'] = $request->file('photo')->store('assets/category', 'public');
 
     $item = Category::findOrFail($id);
-
     $item->update($data);
-
     return redirect()->route('category.index');
     }
 
@@ -133,9 +131,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $item = Category::findOrFail($id);
-
         $item->delete();
-
         return redirect()->route('category.index');
     }
 }

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-              <!-- Section Content -->
+          <!-- Section Content -->
           <div class="section-content section-dashboard-home" data-aos="fade-up">
             <div class="container-fluid">
               <div class="dashboard-heading">
