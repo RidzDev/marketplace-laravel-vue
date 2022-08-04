@@ -60,12 +60,21 @@
               <ul class="navbar-nav d-none d-lg-flex ml-auto">
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
-                    <img src="/assets/images/icon-user.png" alt=""
-                      class="rounded-circle mr-2 profile-picture" />
+                    @if (Auth::user()->roles === 'ADMIN')
+                      <img src="https://i.pinimg.com/736x/0d/dc/14/0ddc1459fb0dd097eb537a69910affea.jpg" alt=""
+                        class="rounded-circle mr-2 profile-picture" />
+                    @else
+                      <img src="/assets/images/icon-user.png" alt=""
+                        class="rounded-circle mr-2 profile-picture" />
+                    @endif
                     Hi, {{ Auth::user()->name }}
                   </a>
                   <div class="dropdown-menu">
-                    <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                    @if (Auth::user()->roles === 'ADMIN')
+                      <a href="{{ route('dashboard-admin') }}" class="dropdown-item">Admin Panel</a>
+                    @else
+                      <a href="" class="d-none"></a>
+                    @endif
                     <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a>
                     <a href="{{ route('home') }}" class="dropdown-item">Home</a>
                     <div class="dropdown-divider"></div>

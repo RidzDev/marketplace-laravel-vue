@@ -105,7 +105,7 @@
                   class="form-control"
                   id="address_one"
                   name="address_one"
-                  value="Jalan 1"
+                  value="{{ Auth::user()->address_one }}"
                 />
               </div>
             </div>
@@ -117,14 +117,13 @@
                   class="form-control"
                   id="address_two"
                   name="address_two"
-                  value="Blok A"
+                  value="{{ Auth::user()->address_two }}"
                 />
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="provinces_id">Province</label>
-                
                 <select
                   name="provinces_id"
                   id="provinces_id"
@@ -133,6 +132,7 @@
                 >
                 <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
               </select>
+              
               <select v-else class="form-control">
                 
               </select>
@@ -163,7 +163,7 @@
                   class="form-control"
                   id="zip_code"
                   name="zip_code"
-                  value="40512"
+                  value="{{ Auth::user()->zip_code }}"
                 />
               </div>
             </div>
@@ -175,7 +175,7 @@
                   class="form-control"
                   id="country"
                   name="country"
-                  value="Indonesia"
+                  value="I{{ Auth::user()->country }}"
                 />
               </div>
             </div>
@@ -187,7 +187,7 @@
                   class="form-control"
                   id="phone_number"
                   name="phone_number"
-                  value="+62 304 8093 0293"
+                  value="{{ Auth::user()->phone_number }}"
                 />
               </div>
             </div>

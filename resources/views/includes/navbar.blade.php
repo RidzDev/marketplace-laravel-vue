@@ -40,11 +40,6 @@
                   Hi, {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu">
-                  @if (Auth::user()->roles === 'ADMIN')
-                    <a href="{{ route('dashboard-admin') }}" class="dropdown-item">Admin Panel</a>
-                  @else
-                    <a href="" class="d-none"></a>
-                  @endif
                   <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
                   <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a>
                   <div class="dropdown-divider"></div>
