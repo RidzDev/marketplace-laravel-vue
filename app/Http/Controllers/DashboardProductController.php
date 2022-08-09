@@ -58,7 +58,7 @@ class DashboardProductController extends Controller
         ]);
     }
 
-    public function store(ProductRequest $request)
+    public function store(ProductGalleryRequest $request)
     {
         $data = $request->all();
 

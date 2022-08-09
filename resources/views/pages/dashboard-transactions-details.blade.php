@@ -53,7 +53,8 @@
                     </div>
                   </div>
                 </div>
-                <form action="{{ route('dashboard-transaction-update', $transaction->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('dashboard-transaction-update', $transaction->id) }}" method="POST"
+                  enctype="multipart/form-data">
                   @csrf
                   <div class="row">
                     <div class="col-12 mt-4 mb-3">
@@ -71,11 +72,13 @@
                         </div>
                         <div class="col-12 col-md-6">
                           <div class="product-title">Proveice</div>
-                          <div class="product-subtitle">{{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}</div>
+                          <div class="product-subtitle">
+                            {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}</div>
                         </div>
                         <div class="col-12 col-md-6">
                           <div class="product-title">City</div>
-                          <div class="product-subtitle">{{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}</div>
+                          <div class="product-subtitle">
+                            {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}</div>
                         </div>
                         <div class="col-12 col-md-6">
                           <div class="product-title">Postal Code</div>

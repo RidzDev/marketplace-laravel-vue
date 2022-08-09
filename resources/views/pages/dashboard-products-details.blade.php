@@ -96,8 +96,7 @@
                       enctype="multipart/form-data">
                       @csrf
                       <input type="hidden" name="products_id" value="{{ $product->id }}" />
-                      <input type="file" name="photos" id="file" class="d-none"
-                        onchange="form.submit()" />
+                      <input type="file" name="photos" id="file" class="d-none" onchange="form.submit()" />
                       <button class="btn btn-secondary btn-block mt-3" onclick="document.getElementById('file').click()"
                         type="button">
                         Add Photo

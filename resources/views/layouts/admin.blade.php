@@ -37,11 +37,8 @@
 
           <a href="{{ route('category.index') }}"
             class="list-group-item list-group-item-action {{ request()->is('admin/category*') ? 'active' : '' }}">Categories</a>
-          {{-- <a
-              href="/dashboard-settings.html"
-              class="list-group-item list-group-item-action"
-              >Transactions</a
-            > --}}
+          <a href="{{ route('transaction.index') }}"
+            class="list-group-item list-group-item-action {{ request()->is('admin/transaction*') ? 'active' : '' }}">Transactions</a>
           <a href="{{ route('user.index') }}"
             class="list-group-item list-group-item-action {{ request()->is('admin/user*') ? 'active' : '' }}"
             class="list-group-item list-group-item-action">Users</a>
@@ -73,9 +70,8 @@
                       data-toggle="dropdown"
                     > --}}
                     @if (Auth::user()->roles === 'ADMIN')
-                      <img
-                        src="https://i.pinimg.com/736x/0d/dc/14/0ddc1459fb0dd097eb537a69910affea.jpg"
-                        alt="" class="rounded-circle mr-2 profile-picture" />
+                      <img src="https://i.pinimg.com/736x/0d/dc/14/0ddc1459fb0dd097eb537a69910affea.jpg" alt=""
+                        class="rounded-circle mr-2 profile-picture" />
                     @else
                       <img src="/assets/images/icon-user.png" alt=""
                         class="rounded-circle mr-2 profile-picture" />

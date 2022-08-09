@@ -55,7 +55,8 @@
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
                           <input type="radio" class="custom-control-input" name="store_status" id="openStoreFalse"
-                            value="0" {{ $user->store_status == 0 || $user->store_status == NULL ? 'checked' : '' }}/>
+                            value="0"
+                            {{ $user->store_status == 0 || $user->store_status == null ? 'checked' : '' }} />
                           <label for="openStoreFalse" class="custom-control-label">Tutup</label>
                         </div>
                       </div>

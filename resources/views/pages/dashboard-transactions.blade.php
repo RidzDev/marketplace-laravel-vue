@@ -34,7 +34,8 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-1">
-                          <img src="{{ Storage::url($sell->product->galleries->first()->photos ?? '') }}" alt="" class="w-100" />
+                          <img src="{{ Storage::url($sell->product->galleries->first()->photos ?? '') }}" alt=""
+                            class="w-100" />
                         </div>
                         <div class="col-md-4">{{ $sell->product->name }}</div>
                         <div class="col-md-3">{{ $sell->transaction->user->name }}</div>
@@ -53,7 +54,8 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-1">
-                          <img src="{{ Storage::url($buy->product->galleries->first()->photos ?? '') }}" alt="" class="w-50" />
+                          <img src="{{ Storage::url($buy->product->galleries->first()->photos ?? '') }}" alt=""
+                            class="w-50" />
                         </div>
                         <div class="col-md-4">{{ $buy->product->name }}</div>
                         <div class="col-md-3">{{ $buy->product->user->store_name }}</div>

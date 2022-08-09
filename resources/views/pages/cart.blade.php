@@ -1,58 +1,51 @@
 @extends('layouts.app')
 
 @section('title')
-    Store Cart Page
+  Store Cart Page
 @endsection
 @section('content')
-    <!-- Page Content -->
-    <div class="page-content page-cart">
-      <section
-        class="store-breadcrumbs"
-        data-aos="fade-down"
-        data-aos-delay="100"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <nav>
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="{{ route('home') }}">Home</a>
-                  </li>
-                  <li class="breadcrumb-item active">Cart</li>
-                </ol>
-              </nav>
-            </div>
+  <!-- Page Content -->
+  <div class="page-content page-cart">
+    <section class="store-breadcrumbs" data-aos="fade-down" data-aos-delay="100">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Cart</li>
+              </ol>
+            </nav>
           </div>
         </div>
-      </section>
-      <section class="store-cart">
-        <div class="container">
-          <div class="row" data-aos="fade-up" data-aos-delay="100">
-            {{--@forelse ($carts as $cart)--}}
-                <div class="col-12 table-responsive">
-              <table class="table table-borderless table-cart">
-                <thead>
+      </div>
+    </section>
+    <section class="store-cart">
+      <div class="container">
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          {{-- @forelse ($carts as $cart) --}}
+          <div class="col-12 table-responsive">
+            <table class="table table-borderless table-cart">
+              <thead>
+                <tr>
+                  <td style="width: 20%">Image</td>
+                  <td style="width: 35%">Name &amp; Seller</td>
+                  <td style="width: 35%">Price</td>
+                  <td style="width: 20%">Menu</td>
+                </tr>
+              </thead>
+              <tbody>
+                @php
+                  $totalPrice = 0;
+                @endphp
+                @foreach ($carts as $cart)
                   <tr>
-                    <td style="width: 20%">Image</td>
-                    <td style="width: 35%">Name &amp; Seller</td>
-                    <td style="width: 35%">Price</td>
-                    <td style="width: 20%">Menu</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  @php
-                      $totalPrice = 0;
-                  @endphp
-                  @foreach ($carts as $cart)
-                      <tr>
                     <td>
                       @if ($cart->product->galleries)
-                          <img
-                        src="{{ Storage::url($cart->product->galleries->first()->photos) }}"
-                        class="cart-image"
-                        alt=""
-                      />
+                        <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" class="cart-image"
+                          alt="" />
                       @endif
                     </td>
                     <td>
@@ -72,123 +65,90 @@
                     </td>
                   </tr>
                   @php
-                      $totalPrice += $cart->product->price;
+                    $totalPrice += $cart->product->price;
                   @endphp
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-            {{--@empty
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          {{-- @empty
                 <div class="col-12 text-center">
                   <div class="col-12 mb-2" style="line-height: 1.5; font-size: 18px;">Wah, keranjang belanjamu masih kosong <br> Yuk, telusuri promo menarik dari Bwastore</div>
                   <a href="{{ route('categories') }}" class="btn btn-primary mb-5">Shopping Now</a>
                 </div>
-            @endforelse--}}
+            @endforelse --}}
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-delay="150">
+          <div class="col-12">
+            <hr />
           </div>
-          <div class="row" data-aos="fade-up" data-aos-delay="150">
-            <div class="col-12">
-              <hr />
-            </div>
-            <div class="col-12">
-              <h2 class="mb-4">Shipping Details</h2>
-            </div>
+          <div class="col-12">
+            <h2 class="mb-4">Shipping Details</h2>
           </div>
-          <form action="{{ route('checkout') }}" id="locations" enctype="multipart/form-data" method="POST">
-            @csrf
-            <input type="hidden" name="total_price" value="{{ $totalPrice }}">
-            <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
+        </div>
+        <form action="{{ route('checkout') }}" id="locations" enctype="multipart/form-data" method="POST">
+          @csrf
+          <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+          <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="address_one">Address 1</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address_one"
-                  name="address_one"
-                  value="{{ Auth::user()->address_one }}"
-                />
+                <input type="text" class="form-control" id="address_one" name="address_one"
+                  value="{{ Auth::user()->address_one }}" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="address_two">Address 2</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="address_two"
-                  name="address_two"
-                  value="{{ Auth::user()->address_two }}"
-                />
+                <input type="text" class="form-control" id="address_two" name="address_two"
+                  value="{{ Auth::user()->address_two }}" />
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="provinces_id">Province</label>
-                <select
-                  name="provinces_id"
-                  id="provinces_id"
-                  class="form-control"
-                  v-if="provinces" v-model="provinces_id"
-                >
-                <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
-              </select>
-              
-              <select v-else class="form-control">
-                
-              </select>
+                <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces"
+                  v-model="provinces_id">
+                  <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
+                </select>
+
+                <select v-else class="form-control">
+
+                </select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="regencies_id">City</label>
-              <select
-                  name="regencies_id"
-                  id="regencies_id"
-                  class="form-control"
-                  v-if="regencies" v-model="regencies_id"
-                >
-                <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
-                <option value="" disabled>No Province Selected</option>
-              </select>
-              <select v-else class="form-control">
-                
-              </select>
+                <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies"
+                  v-model="regencies_id">
+                  <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
+                  <option value="" disabled>No Province Selected</option>
+                </select>
+                <select v-else class="form-control">
+
+                </select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="zip_code">Postal Code</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="zip_code"
-                  name="zip_code"
-                  value="{{ Auth::user()->zip_code }}"
-                />
+                <input type="text" class="form-control" id="zip_code" name="zip_code"
+                  value="{{ Auth::user()->zip_code }}" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="country">Country</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="country"
-                  name="country"
-                  value="I{{ Auth::user()->country }}"
-                />
+                <input type="text" class="form-control" id="country" name="country"
+                  value="I{{ Auth::user()->country }}" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="phone_number">Mobile</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="phone_number"
-                  name="phone_number"
-                  value="{{ Auth::user()->phone_number }}"
-                />
+                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                  value="{{ Auth::user()->phone_number }}" />
               </div>
             </div>
           </div>
@@ -202,15 +162,15 @@
           </div>
           <div class="row" data-aos="fade-up" data-aos-delay="250">
             <div class="col-4 col-md-2">
-              <div class="product-title">${{ number_format($totalPrice*0.015) }}</div>
+              <div class="product-title">${{ number_format($totalPrice * 0.015) }}</div>
               <div class="product-subtitle">Country tax</div>
             </div>
             <div class="col-4 col-md-3">
-              <div class="product-title">${{ number_format($totalPrice*0.02) }}</div>
+              <div class="product-title">${{ number_format($totalPrice * 0.02) }}</div>
               <div class="product-subtitle">Product insurance</div>
             </div>
             <div class="col-4 col-md-2">
-              <div class="product-title">${{ number_format($totalPrice*0.034) }}</div>
+              <div class="product-title">${{ number_format($totalPrice * 0.034) }}</div>
               <div class="product-subtitle">Ship to your location</div>
             </div>
             <div class="col-4 col-md-2">
@@ -224,49 +184,49 @@
             </div>
           </div>
         </form>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
+  </div>
 @endsection
 
 @push('addon-script')
-    <script src="/vendor/vue/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-      var locations = new Vue({
-        el: "#locations",
-        mounted() {
-          AOS.init();
-          this.getProvincesData();
-        },
-        data: {
-          provinces: null,
-          regencies: null,
-          provinces_id: null,
-          regencies_id: null,
-        },
-        methods: {
-          getProvincesData() {
-            var self = this;
-            axios.get('{{ route('api-provinces') }}')
-            .then(function(response){
+  <script src="/vendor/vue/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    var locations = new Vue({
+      el: "#locations",
+      mounted() {
+        AOS.init();
+        this.getProvincesData();
+      },
+      data: {
+        provinces: null,
+        regencies: null,
+        provinces_id: null,
+        regencies_id: null,
+      },
+      methods: {
+        getProvincesData() {
+          var self = this;
+          axios.get('{{ route('api-provinces') }}')
+            .then(function(response) {
               self.provinces = response.data;
             })
-          },
-          getRegenciesData() {
-            var self = this;
-            axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
-            .then(function(response){
+        },
+        getRegenciesData() {
+          var self = this;
+          axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+            .then(function(response) {
               self.regencies = response.data;
             })
-          },
         },
-        watch: {
-          provinces_id: function(newValue, oldVal) {
-            this.regencies_id = null,
+      },
+      watch: {
+        provinces_id: function(newValue, oldVal) {
+          this.regencies_id = null,
             this.getRegenciesData();
-          }
-        },
-      });
-    </script>
+        }
+      },
+    });
+  </script>
 @endpush

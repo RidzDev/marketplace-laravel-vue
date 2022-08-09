@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Exception;
 use Midtrans\Snap;
 use Midtrans\Config;
+use Midtrans\Notification;
+// use Midtrans\Transaction;
 use App\Models\Cart;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -94,5 +96,47 @@ class CheckoutController extends Controller
 
     public function callback(Request $request)
     {
+        // set midtrans configuration
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+
+        // instance midtrans notification
+        $notification = New Notification();
+        
+        // assign to variable for easy coding
+        $status  = $notification->transaction_status;
+        $type = $notification->payment_type;
+        $fraud = $notification->fraud_status;
+        $order_id = $notification->order_id;
+
+        // search transaction based id
+        $transaction = Transaction::findOrFail($order_id);
+
+        // handle notification status
+        // if ($status == 'capture' && $type == 'credit_card' && $fraud == 'challenge'){$transaction->status = 'PENDING';} else {transaction->status='SUCCESS';}
+        if($status == 'capture') {
+            if($type == 'credit_card') {
+                if($fraud == 'challenge') {
+                    $transaction->status = 'PENDING';
+                } else {
+                    $transaction->status = 'SUCCESS';
+                }
+            }
+        } else if($status == 'settlement'){
+            $transaction->status = 'SUCCESS';
+        } else if($status == 'pending') {
+            $transaction->status = 'PENDING';
+        } else if($status == 'deny') {
+            $transaction->status = 'CANCELLED';
+        } else if($status == 'expire') {
+            $transaction->status = 'CANCELLED';
+        } else if($status == 'cancel') {
+            $transaction->status = 'CANCELLED';
+        }
+
+        // save transaction
+        $transaction->save();
     }
 }

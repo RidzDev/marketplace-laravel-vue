@@ -77,13 +77,15 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="postalCode">Postal Code</label>
-                        <input type="text" class="form-control" id="postalCode" name="zip_code" value="{{ $user->zip_code }}" />
+                        <input type="text" class="form-control" id="postalCode" name="zip_code"
+                          value="{{ $user->zip_code }}" />
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="country">Country</label>
-                        <input type="text" class="form-control" id="country" name="country" value="{{ $user->country }}" />
+                        <input type="text" class="form-control" id="country" name="country"
+                          value="{{ $user->country }}" />
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -111,43 +113,43 @@
 @endsection
 
 @push('addon-script')
-    <script src="/vendor/vue/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-      var locations = new Vue({
-        el: "#locations",
-        mounted() {
-          AOS.init();
-          this.getProvincesData();
-        },
-        data: {
-          provinces: null,
-          regencies: null,
-          provinces_id: null,
-          regencies_id: null,
-        },
-        methods: {
-          getProvincesData() {
-            var self = this;
-            axios.get('{{ route('api-provinces') }}')
-            .then(function(response){
+  <script src="/vendor/vue/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    var locations = new Vue({
+      el: "#locations",
+      mounted() {
+        AOS.init();
+        this.getProvincesData();
+      },
+      data: {
+        provinces: null,
+        regencies: null,
+        provinces_id: null,
+        regencies_id: null,
+      },
+      methods: {
+        getProvincesData() {
+          var self = this;
+          axios.get('{{ route('api-provinces') }}')
+            .then(function(response) {
               self.provinces = response.data;
             })
-          },
-          getRegenciesData() {
-            var self = this;
-            axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
-            .then(function(response){
+        },
+        getRegenciesData() {
+          var self = this;
+          axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+            .then(function(response) {
               self.regencies = response.data;
             })
-          },
         },
-        watch: {
-          provinces_id: function(newValue, oldVal) {
-            this.regencies_id = null,
+      },
+      watch: {
+        provinces_id: function(newValue, oldVal) {
+          this.regencies_id = null,
             this.getRegenciesData();
-          }
-        },
-      });
-    </script>
+        }
+      },
+    });
+  </script>
 @endpush

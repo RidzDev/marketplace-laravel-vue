@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-  User
+  Transaction
 @endsection
 
 @section('content')
@@ -9,8 +9,8 @@
   <div class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
       <div class="dashboard-heading">
-        <h2 class="dashboard-title">User</h2>
-        <p class="dashboard-subtitle">Edit User</p>
+        <h2 class="dashboard-title">Transaction</h2>
+        <p class="dashboard-subtitle">Edit Transaction</p>
       </div>
       <div class="dashboard-content">
         <div class="row">
@@ -26,37 +26,27 @@
             @endif
             <div class="card">
               <div class="card-body">
-                <form action="{{ route('user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('transaction.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                   @method('PUT')
                   @csrf
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="">Username</label>
-                        <input type="text" name="name" class="form-control" required value="{{ $item->name }}">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="">Email</label>
-                        <input type="email" name="email" class="form-control" required value="{{ $item->email }}">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="password" name="password" class="form-control">
-                        <small>*Kosongkan jika tidak ingin mengganti password</small>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="">Roles</label>
-                        <select name="roles" id="" required class="form-control">
-                          <option value="{{ $item->roles }}" selected>Tidak diganti </option>
-                          <option value="ADMIN">Admin</option>
-                          <option value="USER">User</option>
+                        <label for="">Transaction Status</label>
+                        <select name="transaction_status" id="" class="form-control">
+                          <option value="{{ $item->transaction_status }}" selected>{{ $item->transaction_status }}
+                          </option>
+                          <option value="" disabled>-----------------------</option>
+                          <option value="PENDING">PENDINT</option>
+                          <option value="SHIPPING">SHIPPING</option>
+                          <option value="SUCCESS">SUCCESS</option>
                         </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="">Total Price</label>
+                        <input type="number" name="total_price" class="form-control" value="{{ $item->total_price }}">
                       </div>
                     </div>
                   </div>
@@ -74,3 +64,17 @@
     </div>
   </div>
 @endsection
+
+@push('addon-script')
+  <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editor'))
+      .then(editor => {
+        console.log(editor);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  </script>
+@endpush
